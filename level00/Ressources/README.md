@@ -14,7 +14,7 @@ Invalid Password!
 
 Several things can be seen in the ``main`` of this program, such as a call to a ``system``. It would be necessary to know what the call system is and how to make the call.
 
-```x86asm
+```nasm
 $ objdump -d ./level00 -M intel | sed -n '/<main>:/,/^$/p'
 08048494 <main>:
  8048494:       55                      push   ebp
@@ -67,7 +67,7 @@ Breakpoint 1, 0x08048497 in main ()
 
 To reach the call to ``system``, the value sent at the time of ``scanf`` must be different from ``0x149c``.
 
-```x86asm
+```nasm
  80484de:       e8 ed fe ff ff          call   80483d0 <__isoc99_scanf@plt>
  80484e3:       8b 44 24 1c             mov    eax,DWORD PTR [esp+0x1c]
  80484e7:       3d 9c 14 00 00          cmp    eax,0x149c
