@@ -4,9 +4,9 @@ First, I disassembled the executable and converted it into easy-to-understand C 
 </br>
 In `source.c`, we can see that `gets` is being used, so we can exploit this to cause an overflow and perform a return-to-libc attack.
 </br>
-But first we need to find the payload size for the overflow, then the addresses of `system`, `exit`, and `/bin/sh`.
+But first we need to find the buffer size for the overflow, then the addresses of `system`, `exit`, and `/bin/sh`.
 
-To determine the payload size, we'll use a tool.
+To determine the buffer size, we'll use a tool.
 </br>
 <<https://wiremask.eu/tools/buffer-overflow-pattern-generator/>>
 
