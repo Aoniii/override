@@ -65,7 +65,7 @@ Breakpoint 1, 0x08048497 in main ()
 0x8048649:       "/bin/sh"
 ```
 
-To reach the call to ``system``, the value sent at the time of ``scanf`` must be different from ``0x149c``.
+To reach the call to ``system``, the value sent at the time of ``scanf`` must be equal to ``0x149c``.
 
 ```nasm
  80484de:       e8 ed fe ff ff          call   80483d0 <__isoc99_scanf@plt>

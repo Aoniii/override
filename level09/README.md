@@ -45,7 +45,7 @@ typedef struct	s_msg {
 }				t_msg;
 ```
 
-It fall into `msg_len`, so by changing `msg_len`, we can copy more data using `strncpy` in `set_msg`.
+It falls into `msg_len`, so by changing `msg_len`, we can copy more data using `strncpy` in `set_msg`.
 
 ```c
 void set_msg(t_msg *data) {
